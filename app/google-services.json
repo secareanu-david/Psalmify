@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:533461207166:android:54fcab08f52d2497a2702f",
         "android_client_info": {
-          "package_name": "com.example.authenticationapp"
+          "package_name": "com.example.psalmify"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "533461207166-kufsj3r013kig7do2ug6j6g8fifd1huj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.authenticationapp",
+            "package_name": "com.example.psalmify",
             "certificate_hash": "64dbf8510f38f75629f2ee4d8e794be1d9308dfe"
           }
         },
