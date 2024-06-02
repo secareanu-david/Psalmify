@@ -1,102 +1,96 @@
-package com.example.psalmify;
+package com.example.psalmify
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+class Register : AppCompatActivity() {
+    var mFullName: EditText? = null
+    var mEmail: EditText? = null
+    var mPassword: EditText? = null
+    var mPhone: EditText? = null
+    var mRegisterBtn: Button? = null
+    var mLoginBtn: TextView? = null
+    var mHomeBtn: TextView? = null
+    var fAuth: FirebaseAuth? = null
+    var userID: String? = null
+    var progressBar: ProgressBar? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register)
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+        mFullName = findViewById(R.id.fullName)
+        mEmail = findViewById(R.id.email)
+        mPassword = findViewById(R.id.password)
+        mPhone = findViewById(R.id.phone)
+        mRegisterBtn = findViewById(R.id.btnLogin)
+        mLoginBtn = findViewById(R.id.textRegister)
+        mHomeBtn = findViewById(R.id.homeText)
 
-public class Register extends AppCompatActivity {
-    EditText mFullName, mEmail, mPassword, mPhone;
-    Button mRegisterBtn;
-    TextView mLoginBtn, mHomeBtn;
-    FirebaseAuth fAuth;
-    String userID;
-    ProgressBar progressBar;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        fAuth = FirebaseAuth.getInstance()
+        progressBar = findViewById(R.id.progressBar)
 
-        mFullName = findViewById(R.id.fullName);
-        mEmail = findViewById(R.id.email);
-        mPassword = findViewById(R.id.password);
-        mPhone = findViewById(R.id.phone);
-        mRegisterBtn = findViewById(R.id.btnLogin);
-        mLoginBtn = findViewById(R.id.textRegister);
-        mHomeBtn = findViewById(R.id.homeText);
-
-        fAuth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.progressBar);
-
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
+        if (fAuth?.currentUser != null) {
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
         }
 
-        mRegisterBtn.setOnClickListener(new View.OnClickListener(){
+        mRegisterBtn?.setOnClickListener(View.OnClickListener {
+            val email = mEmail?.text.toString().trim { it <= ' ' }
+            val password = mPassword?.text.toString().trim { it <= ' ' }
 
-            @Override
-            public void onClick(View v) {
-                String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
-
-                if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Email is required.");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Password is required.");
-                    return;
-                }
-
-                if(password.length() < 6){
-                    mPassword.setError("Password must be greater or equals to 6 characters.");
-                }
-
-                progressBar.setVisibility(View.VISIBLE);
-
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-                        }
-                        else{
-                            Toast.makeText(Register.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
+            if (TextUtils.isEmpty(email)) {
+                mEmail?.error = "Email is required."
+                return@OnClickListener
             }
-        });
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
+
+            if (TextUtils.isEmpty(password)) {
+                mPassword?.error = "Password is required."
+                return@OnClickListener
             }
-        });
-        mHomeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
+
+            if (password.length < 6) {
+                mPassword?.error = "Password must be greater or equals to 6 characters."
             }
-        });
+
+            progressBar?.visibility = View.VISIBLE
+            fAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this@Register, "User Created.", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                } else {
+                    Toast.makeText(
+                        this@Register,
+                        "Error ! " + task.exception!!.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    progressBar?.visibility = View.GONE
+                }
+            }
+        })
+        mLoginBtn?.setOnClickListener(View.OnClickListener {
+            startActivity(
+                Intent(
+                    applicationContext,
+                    Login::class.java
+                )
+            )
+        })
+        mHomeBtn?.setOnClickListener(View.OnClickListener {
+            startActivity(
+                Intent(
+                    applicationContext,
+                    Home::class.java
+                )
+            )
+        })
     }
 }

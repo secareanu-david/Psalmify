@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.psalmify.Home">
+        <activity android:name="com.example.psalmify.Home"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,14 +20,16 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.psalmify.Login" />
-        <activity android:name="com.example.psalmify.Register">
+        <activity android:name="com.example.psalmify.Register"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.psalmify.MainActivity">
+        <activity android:name="com.example.psalmify.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
