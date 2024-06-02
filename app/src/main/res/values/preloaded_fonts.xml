@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/abril_fatface</item>
+        <item>@font/advent_pro_thin</item>
+        <item>@font/aguafina_script</item>
+        <item>@font/aldrich</item>
+        <item>@font/cabin_sketch</item>
+        <item>@font/cherry_cream_soda</item>
+    </array>
+</resources>
