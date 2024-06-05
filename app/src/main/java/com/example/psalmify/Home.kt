@@ -56,4 +56,3 @@ class Home : Fragment() {
                 }
             }
     }
-}
