@@ -1,2 +1,2 @@
-# Psalmify  
+# Psalmify
 To be continued.

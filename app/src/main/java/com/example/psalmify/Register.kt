@@ -120,7 +120,7 @@ class Register : AppCompatActivity() {
             startActivity(
                 Intent(
                     applicationContext,
-                    Home::class.java
+                    HomeLogin::class.java
                 )
             )
         })

@@ -34,6 +34,12 @@ class Login : AppCompatActivity() {
         mHomeBtn = findViewById(R.id.txtHome)
 
         mLoginBtn?.setOnClickListener(View.OnClickListener {
+
+            //For testing purpose
+            val intent = Intent(this@Login, MainActivity::class.java)
+            startActivity(intent)
+            return@OnClickListener
+
             val email = mEmail?.text.toString().trim { it <= ' ' }
             val password = mPassword?.text.toString().trim { it <= ' ' }
 
@@ -85,7 +91,7 @@ class Login : AppCompatActivity() {
             startActivity(
                 Intent(
                     applicationContext,
-                    Home::class.java
+                    HomeLogin::class.java
                 )
             )
         })
