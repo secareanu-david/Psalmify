@@ -6,5 +6,6 @@ import androidx.room.ColumnInfo
 @Entity(tableName = "psalm_table")
 data class Psalm(
     @PrimaryKey val id: Int,
+    @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "content") val content: String
 )
