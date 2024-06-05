@@ -1,45 +1,26 @@
 {
   "project_info": {
-    "project_number": "533461207166",
-    "firebase_url": "https://authenticationapp-2dbc1.firebaseio.com",
-    "project_id": "authenticationapp-2dbc1",
-    "storage_bucket": "authenticationapp-2dbc1.appspot.com"
+    "project_number": "373815623321",
+    "project_id": "psalmify-a2c25",
+    "storage_bucket": "psalmify-a2c25.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:533461207166:android:54fcab08f52d2497a2702f",
+        "mobilesdk_app_id": "1:373815623321:android:e8e6d4c75676fc74f04208",
         "android_client_info": {
           "package_name": "com.example.psalmify"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "533461207166-kufsj3r013kig7do2ug6j6g8fifd1huj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.psalmify",
-            "certificate_hash": "64dbf8510f38f75629f2ee4d8e794be1d9308dfe"
-          }
-        },
-        {
-          "client_id": "533461207166-86glb60hjphb926o4gagbgek7t5gcv89.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDSDDBnHYHD495LnuSXg0tkOKZ56bL89jI"
+          "current_key": "AIzaSyCHw3eSHtmXD9ow3s9WCLqWgL0IwyNBjew"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "533461207166-86glb60hjphb926o4gagbgek7t5gcv89.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
