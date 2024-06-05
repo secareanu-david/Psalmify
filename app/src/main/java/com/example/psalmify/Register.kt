@@ -11,32 +11,38 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Register : AppCompatActivity() {
-    var mFullName: EditText? = null
+    var mName: EditText? = null
     var mEmail: EditText? = null
     var mPassword: EditText? = null
-    var mPhone: EditText? = null
     var mRegisterBtn: Button? = null
     var mLoginBtn: TextView? = null
     var mHomeBtn: TextView? = null
     var fAuth: FirebaseAuth? = null
-    var userID: String? = null
     var progressBar: ProgressBar? = null
+
+    private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        mFullName = findViewById(R.id.fullName)
+        mName = findViewById(R.id.name)
         mEmail = findViewById(R.id.email)
         mPassword = findViewById(R.id.password)
-        mPhone = findViewById(R.id.phone)
         mRegisterBtn = findViewById(R.id.btnLogin)
         mLoginBtn = findViewById(R.id.textRegister)
         mHomeBtn = findViewById(R.id.homeText)
 
         fAuth = FirebaseAuth.getInstance()
         progressBar = findViewById(R.id.progressBar)
+
+
 
         if (fAuth?.currentUser != null) {
             startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -62,10 +68,34 @@ class Register : AppCompatActivity() {
             }
 
             progressBar?.visibility = View.VISIBLE
+
             fAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this@Register, "User Created.", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+
+                    fAuth!!.currentUser?.let { firebaseUser ->
+                        val userId = firebaseUser.uid
+                        val userName = mName?.text.toString()
+
+                        val user = User(userId, userName, emptyList())
+
+                        // Save user to Firestore
+                        db.collection("users").document(userId).set(user)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "User Created.", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Error! ${e.message}", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                        // Save user to Room database
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val userDao = AppDatabase.getDatabase(applicationContext).userDao()
+                            userDao.insert(user)
+                        }
+
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                    }
                 } else {
                     Toast.makeText(
                         this@Register,
@@ -76,6 +106,8 @@ class Register : AppCompatActivity() {
                 }
             }
         })
+
+
         mLoginBtn?.setOnClickListener(View.OnClickListener {
             startActivity(
                 Intent(

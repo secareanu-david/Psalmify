@@ -20,4 +20,5 @@ class Home : AppCompatActivity() {
         startActivity(Intent(applicationContext, Register::class.java))
         finish()
     }
+
 }
