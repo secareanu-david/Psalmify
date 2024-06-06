@@ -34,7 +34,7 @@ class SyncManager : Application() {
                     val userId = document.id
                     val userName = document.data["name"] as String
                     val favoritePsalms = document.data["favorite_psalms"] as? List<Int> ?: emptyList()
-                    val userDao = AppDatabase.getDatabase(applicationContext).userDao()
+                    val userDao = AppDatabase.getDatabase(applicationContext,CoroutineScope(Dispatchers.IO)).userDao()
                     // Update or insert user data into Room database
                     CoroutineScope(Dispatchers.IO).launch {
                         val user = User(userId, userName, favoritePsalms)
@@ -49,7 +49,7 @@ class SyncManager : Application() {
 
     private fun syncDataFromRoomToFirestore() {
         // Retrieve all users from the Room database;
-        val userDao = AppDatabase.getDatabase(applicationContext).userDao()
+        val userDao = AppDatabase.getDatabase(applicationContext,CoroutineScope(Dispatchers.IO)).userDao()
         CoroutineScope(Dispatchers.IO).launch {
             val users = userDao.getAllUsers()
             // Update corresponding documents in Firestore collection

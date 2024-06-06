@@ -90,7 +90,7 @@ class Register : AppCompatActivity() {
 
                         // Save user to Room database
                         CoroutineScope(Dispatchers.IO).launch {
-                            val userDao = AppDatabase.getDatabase(applicationContext).userDao()
+                            val userDao = AppDatabase.getDatabase(applicationContext,CoroutineScope(Dispatchers.IO)).userDao()
                             userDao.insert(user)
                         }
 

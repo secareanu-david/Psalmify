@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PsalmDao {
@@ -14,5 +15,5 @@ interface PsalmDao {
     suspend fun getPsalm(psalmId: Int): Psalm?
 
     @Query("SELECT * FROM psalm_table")
-    suspend fun getAllPsalms(): List<Psalm>
+    fun getAllPsalms(): Flow<List<Psalm>>
 }

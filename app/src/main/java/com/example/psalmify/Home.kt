@@ -5,55 +5,83 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class Home : Fragment(), PsalmListAdapter.RecyclerViewEvent{
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Home.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Home : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var psalmRepository: PsalmRepository
 
+    private val homeViewModel: HomeViewModel by viewModels(){
+        HomeViewModelFactory(psalmRepository)
+    }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PsalmListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        //TODO get favorites from user
+        //testing favorites
+        val favoriteList : List<Int> = listOf(1,2,3)
+
+        //TODO instead of empty list we pass the favorites Psalm list from the user : List<int>
+        psalmRepository = PsalmRepository(
+            AppDatabase.getDatabase(requireContext(), CoroutineScope(Dispatchers.IO)).psalmDao(),
+            favoriteList
+        )
+
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Inflate the layout for this fragment
+        val view =  inflater.inflate(R.layout.fragment_home, container, false)
+
+        recyclerView = view.findViewById(R.id.recyclerview_home)
+
+        adapter = PsalmListAdapter(homeViewModel, this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        homeViewModel.allPsalm.observe(viewLifecycleOwner){ psalmsItems ->
+            psalmsItems.let{adapter.submitList(it)}
+        }
+        return view
+    }
+    override fun onItemClicked(position: Int) {
+        // Handle the item click event here
+        val psalm = adapter.currentList[position]
+
+        val bundle : Bundle = bundleOf(
+            "psalm_number" to psalm.psalm.id,
+            "psalm_content" to psalm.psalm.content
+        )
+        // Navigate to the details or perform any action
+        //findNavController().navigate(R.id.action_home2_to_detailsFragment, bundle)
+        if (findNavController().currentDestination?.id != R.id.home2){
+
+           // findNavController().navigateUp()
+            // Pop the back stack
+            //findNavController().popBackStack(R.id.home2, false)
+
+            // Re-add the Home fragment
+            findNavController().navigate(R.id.home2)
+        }
+
+
+        findNavController().navigate(R.id.action_home2_to_detailsFragment, bundle)
+
+
     }
 }
+

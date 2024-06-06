@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/home2">
+
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.example.psalmify.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_home2_to_settings2"
+            app:destination="@id/settings2" />
+        <action
+            android:id="@+id/action_home2_to_favorite"
+            app:destination="@id/favorite" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.psalmify.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_settings2"
+            app:destination="@id/settings2" />
+        <action
+            android:id="@+id/action_detailsFragment_to_home2"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_detailsFragment_to_favorite"
+            app:destination="@id/favorite" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorite"
+        android:name="com.example.psalmify.Favorite"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favorite_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_favorite_to_settings2"
+            app:destination="@id/settings2" />
+        <action
+            android:id="@+id/action_favorite_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings2"
+        android:name="com.example.psalmify.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings2_to_favorite"
+            app:destination="@id/favorite" />
+        <action
+            android:id="@+id/action_settings2_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+</navigation>
