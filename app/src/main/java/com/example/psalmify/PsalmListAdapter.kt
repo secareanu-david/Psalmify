@@ -1,16 +1,27 @@
 package com.example.psalmify
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class PsalmListAdapter(
-    private val psalmViewModel: HomeViewModel,
+    private val context: Context,
+    //private val psalmViewModel: HomeViewModel,
     private val listener: RecyclerViewEvent
 ) : ListAdapter<PsalmItem, PsalmListAdapter.ItemViewHolder>(PSALMS_COMPARATOR) {
 
@@ -26,6 +37,46 @@ class PsalmListAdapter(
         holder.imageButtonFavorite.setOnClickListener {
             current.isFavorite = !current.isFavorite
             holder.imageButtonFavorite.isSelected = current.isFavorite
+
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+            if (currentUserId != null) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val userDao = AppDatabase.getDatabase(context, CoroutineScope(Dispatchers.IO)).userDao()
+                    val user = userDao.getUser(currentUserId)
+                    if (user != null) {
+                        val favoritePsalmsList = user.getFavoritePsalmsList().toMutableList()
+                        if (current.isFavorite)
+                            favoritePsalmsList.add(current.psalm.id)
+                        else
+                            favoritePsalmsList.remove(current.psalm.id)
+
+                        val updatedFavorites = user.setFavoritePsalmsList(favoritePsalmsList)
+                        //modified list in room database
+                        userDao.updateFavoritePsalms(currentUserId, updatedFavorites)
+
+                        //modified list in firebase database
+                        val db = Firebase.firestore
+                        FirebaseAuth.getInstance().currentUser?.let { currentUser ->
+                            val userFavoritesUpdate = mapOf("favoritePsalms" to updatedFavorites)
+
+                            db.collection("users").document(currentUser.uid)
+                                .update(userFavoritesUpdate)
+                                .addOnSuccessListener {
+                                    Toast.makeText(context, "Favorites Updated", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(
+                                        context,
+                                        "Error! ${e.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        }
+                    }
+                }
+            }
+
         }
     }
     class ItemViewHolder(view: View, private val listener: RecyclerViewEvent) : RecyclerView.ViewHolder(view), View.OnClickListener {

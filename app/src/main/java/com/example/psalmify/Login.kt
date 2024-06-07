@@ -6,11 +6,13 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class Login : AppCompatActivity() {
     private var mEmail: EditText? = null
@@ -18,7 +20,6 @@ class Login : AppCompatActivity() {
     private var mLoginBtn: Button? = null
     private var mCreateBtn: TextView? = null
     private var mHomeBtn: TextView? = null
-    private var progressBar: ProgressBar? = null
     private var fAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +28,12 @@ class Login : AppCompatActivity() {
 
         mEmail = findViewById(R.id.email)
         mPassword = findViewById(R.id.password)
-        progressBar = findViewById(R.id.progressBar)
         fAuth = FirebaseAuth.getInstance()
         mLoginBtn = findViewById(R.id.btnLogin)
         mCreateBtn = findViewById(R.id.textRegister)
         mHomeBtn = findViewById(R.id.txtHome)
 
         mLoginBtn?.setOnClickListener(View.OnClickListener {
-
-            //For testing purpose
-            val intent = Intent(this@Login, MainActivity::class.java)
-            startActivity(intent)
-            return@OnClickListener
 
             val email = mEmail?.text.toString().trim { it <= ' ' }
             val password = mPassword?.text.toString().trim { it <= ' ' }
@@ -58,22 +53,27 @@ class Login : AppCompatActivity() {
                 return@OnClickListener
             }
 
-            progressBar?.visibility = View.VISIBLE
-
             // authenticate the user
             fAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this@Login, "Successfully Logged In", Toast.LENGTH_LONG).show()
-                    //                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    var alias : String? = null
+                    val db = FirebaseFirestore.getInstance()
+                    val userRef = db.collection("users").document(fAuth?.currentUser!!.uid)
+                    userRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null && document.exists()) {
+                                alias = document.getString("name")
+                                Toast.makeText(this@Login, "Dumnezeu sa te binecuvanteze, "+alias+"!", Toast.LENGTH_LONG).show()
+                            }
+                        }
                     val intent = Intent(this@Login, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(
                         this@Login,
-                        "Error ! " + task.exception!!.message,
+                        "Eroare!Nu exista acest utilizator ! " + task.exception!!.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    progressBar?.visibility = View.GONE
                 }
             }
         })

@@ -40,7 +40,6 @@ class Register : AppCompatActivity() {
         mHomeBtn = findViewById(R.id.homeText)
 
         fAuth = FirebaseAuth.getInstance()
-        progressBar = findViewById(R.id.progressBar)
 
 
 
@@ -76,7 +75,7 @@ class Register : AppCompatActivity() {
                         val userId = firebaseUser.uid
                         val userName = mName?.text.toString()
 
-                        val user = User(userId, userName, emptyList())
+                        val user = User(userId, userName, "")
 
                         // Save user to Firestore
                         db.collection("users").document(userId).set(user)

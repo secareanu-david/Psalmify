@@ -8,5 +8,14 @@ import androidx.room.ColumnInfo
 data class User(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "favorite_psalms") val favoritePsalms: List<Int>
-)
+    @ColumnInfo(name = "favorite_psalms") val favoritePsalms: String
+) {
+
+    fun getFavoritePsalmsList(): List<Int> {
+        return favoritePsalms.split(",").mapNotNull { it.toIntOrNull() }
+    }
+
+    fun setFavoritePsalmsList(favorites: List<Int>): String {
+        return favorites.joinToString(",")
+    }
+}

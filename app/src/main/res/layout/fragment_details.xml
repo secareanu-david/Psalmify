@@ -4,53 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/psalmify_logo"
     tools:context=".DetailsFragment">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#000000"
-    android:id="@+id/constraint_layout"
-    android:clickable="true"
-    android:focusable="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true">
 
-    <!--<TextView
-        android:id="@+id/textViewPsalmContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Content of the psalm"
+        <TextView
+            android:id="@+id/textViewPsalm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Psalmul: "
+            app:layout_constraintBottom_toTopOf="@+id/textViewPsalmContent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewPsalmNumberDetails"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-        app:layout_constraintStart_toStartOf="@+id/textViewPsalmNumberDetails"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        <TextView
+            android:id="@+id/textViewPsalmNumberDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number 69"
+            app:layout_constraintBottom_toTopOf="@+id/textViewPsalmContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewPsalm" />
 
-    <TextView
-        android:id="@+id/textViewPsalm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Psalmul: "
-        app:layout_constraintEnd_toStartOf="@id/textViewPsalmNumberDetails"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewPsalmContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="260dp"
+            android:background="@color/white"
+            android:text="ContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalm" />
 
-    <TextView
-        android:id="@+id/textViewPsalmNumberDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number 69"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/textViewPsalm"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewPsalmContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPsalm" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

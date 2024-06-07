@@ -16,4 +16,7 @@ interface PsalmDao {
 
     @Query("SELECT * FROM psalm_table")
     fun getAllPsalms(): Flow<List<Psalm>>
+
+    @Query("SELECT * FROM psalm_table WHERE id IN (:favoritePsalms)")
+    fun getFavoritePsalms(favoritePsalms : List<Int>): Flow<List<Psalm>>
 }

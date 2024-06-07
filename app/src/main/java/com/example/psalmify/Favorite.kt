@@ -5,27 +5,48 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class Favorite : Fragment(), PsalmListAdapter.RecyclerViewEvent {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Favorite.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Favorite : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val psalmRepositoryLiveData = MutableLiveData<PsalmRepository>()
+    private lateinit var favoritesViewModel: FragmentViewModel
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PsalmListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val userDao =
+                AppDatabase.getDatabase(requireContext(), CoroutineScope(Dispatchers.IO)).userDao()
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+            val psalmRepository = if (currentUserId != null) {
+                val user = userDao.getUser(currentUserId)
+                val favoriteList = user?.getFavoritePsalmsList() ?: emptyList()
+                PsalmRepository(
+                    AppDatabase.getDatabase(requireContext(), CoroutineScope(Dispatchers.IO)).psalmDao(),
+                    favoriteList
+                )
+            } else {
+                PsalmRepository(
+                    AppDatabase.getDatabase(requireContext(), CoroutineScope(Dispatchers.IO)).psalmDao(),
+                    emptyList()
+                )
+            }
+            psalmRepositoryLiveData.postValue(psalmRepository)
         }
     }
 
@@ -33,27 +54,35 @@ class Favorite : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_favorite, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Favorite.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Favorite().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        recyclerView = view.findViewById(R.id.recyclerview_favorites)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        psalmRepositoryLiveData.observe(viewLifecycleOwner, Observer { psalmRepository ->
+            if (psalmRepository != null) {
+                favoritesViewModel = FragmentViewModel(psalmRepository)
+                adapter = PsalmListAdapter(requireContext(), this)
+                recyclerView.adapter = adapter
+
+                favoritesViewModel.favoritePsalms.observe(viewLifecycleOwner) { psalmsItems ->
+                    psalmsItems.let { adapter.submitList(it) }
                 }
             }
+        })
+
+        return view
+    }
+
+    override fun onItemClicked(position: Int) {
+        val psalm = adapter.currentList[position]
+        val bundle: Bundle = bundleOf(
+            "psalm_number" to psalm.psalm.id,
+            "psalm_content" to psalm.psalm.content
+        )
+        if (findNavController().currentDestination?.id != R.id.favorite) {
+            findNavController().navigate(R.id.favorite)
+        }
+        findNavController().navigate(R.id.action_favorite_to_detailsFragment, bundle)
     }
 }

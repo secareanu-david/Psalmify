@@ -14,8 +14,8 @@ interface UserDao {
     @Query("SELECT * FROM user_table WHERE id = :userId")
     suspend fun getUser(userId: String): User?
 
-   // @Update
-    //suspend fun updateFavoritePsalms(userId: String, favoritePsalms: List<Int>)
+    @Query("UPDATE user_table SET favorite_psalms = :favoritePsalms WHERE id = :userId")
+    suspend fun updateFavoritePsalms(userId: String, favoritePsalms: String)
 
     @Query("SELECT * FROM user_table")
     suspend fun getAllUsers(): List<User>

@@ -4,48 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/b2"
+    android:background="@drawable/login"
     tools:context=".Register">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Psalmify"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/advent_pro_thin"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:text="Create New Account"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:fontFamily="@font/advent_pro_thin"
+        app:fontFamily="@font/cabin_sketch"
         app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
     <EditText
         android:id="@+id/name"
         android:layout_width="379dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:ems="10"
         android:hint="Nickname"
@@ -61,6 +43,7 @@
         android:id="@+id/email"
         android:layout_width="379dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:ems="10"
         android:hint="Email"
@@ -95,6 +78,7 @@
         android:layout_marginBottom="16dp"
         android:background="#000000"
         android:text="Register"
+        android:fontFamily="@font/cabin_sketch"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textRegister"
@@ -110,36 +94,22 @@
         android:text="Already Registered? Login Here"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/advent_pro_thin"
+        app:fontFamily="@font/cherry_cream_soda"
         app:layout_constraintBottom_toBottomOf="@+id/homeText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/homeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="24dp"
         android:text="Return to Home"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/advent_pro_thin"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:fontFamily="@font/cherry_cream_soda"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

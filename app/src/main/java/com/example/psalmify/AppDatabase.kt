@@ -13,7 +13,6 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 
 @Database(entities = [User::class, Psalm::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

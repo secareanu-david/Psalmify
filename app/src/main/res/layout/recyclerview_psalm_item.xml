@@ -17,6 +17,8 @@
             android:id="@+id/textViewPsalm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/cabin_sketch"
+            android:textStyle="bold"
             android:text="Psalmul: "
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,10 +26,12 @@
 
         <TextView
             android:id="@+id/textViewPsalmDescription"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
+            android:layout_width="311dp"
+            android:layout_height="52dp"
+            android:fontFamily="@font/aldrich"
             android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
             android:textColor="@color/white"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPsalm" />
 
@@ -45,6 +49,9 @@
             android:id="@+id/textViewPsalmNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/cherry_cream_soda"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:text="100"
             app:layout_constraintStart_toEndOf="@+id/textViewPsalm"
             app:layout_constraintTop_toTopOf="parent" />

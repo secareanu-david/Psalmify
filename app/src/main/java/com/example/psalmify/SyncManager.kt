@@ -33,7 +33,7 @@ class SyncManager : Application() {
                 for (document in result) {
                     val userId = document.id
                     val userName = document.data["name"] as String
-                    val favoritePsalms = document.data["favorite_psalms"] as? List<Int> ?: emptyList()
+                    val favoritePsalms = document.data["favoritePsalms"] as? String ?: ""
                     val userDao = AppDatabase.getDatabase(applicationContext,CoroutineScope(Dispatchers.IO)).userDao()
                     // Update or insert user data into Room database
                     CoroutineScope(Dispatchers.IO).launch {
