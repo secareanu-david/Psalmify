@@ -62,7 +62,8 @@ class Favorite : Fragment(), PsalmListAdapter.RecyclerViewEvent {
         psalmRepositoryLiveData.observe(viewLifecycleOwner, Observer { psalmRepository ->
             if (psalmRepository != null) {
                 favoritesViewModel = FragmentViewModel(psalmRepository)
-                adapter = PsalmListAdapter(requireContext(), this)
+                adapter = PsalmListAdapter(requireContext(), this,RecyclerType.FAVORITE)
+                adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 recyclerView.adapter = adapter
 
                 favoritesViewModel.favoritePsalms.observe(viewLifecycleOwner) { psalmsItems ->

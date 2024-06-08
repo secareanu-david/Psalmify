@@ -1,5 +1,6 @@
 package com.example.psalmify
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +23,8 @@ class Home : Fragment(), PsalmListAdapter.RecyclerViewEvent {
 
     private val psalmRepositoryLiveData = MutableLiveData<PsalmRepository>()
     private lateinit var homeViewModel: FragmentViewModel
+
+    private var savedScrollPosition: Int = 0
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PsalmListAdapter
@@ -63,11 +66,13 @@ class Home : Fragment(), PsalmListAdapter.RecyclerViewEvent {
             if (psalmRepository != null) {
                 homeViewModel = FragmentViewModel(psalmRepository)
                 adapter = PsalmListAdapter(requireContext(), this)
+                adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 recyclerView.adapter = adapter
 
                 homeViewModel.allPsalm.observe(viewLifecycleOwner) { psalmsItems ->
                     psalmsItems.let { adapter.submitList(it) }
                 }
+
             }
         })
 

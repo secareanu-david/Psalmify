@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,13 +15,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class PsalmListAdapter(
     private val context: Context,
     //private val psalmViewModel: HomeViewModel,
-    private val listener: RecyclerViewEvent
+    private val listener: RecyclerViewEvent,
+    private val recyclerType: RecyclerType = RecyclerType.HOME
 ) : ListAdapter<PsalmItem, PsalmListAdapter.ItemViewHolder>(PSALMS_COMPARATOR) {
 
 
@@ -38,6 +37,8 @@ class PsalmListAdapter(
             current.isFavorite = !current.isFavorite
             holder.imageButtonFavorite.isSelected = current.isFavorite
 
+
+
             val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
             if (currentUserId != null) {
                 CoroutineScope(Dispatchers.IO).launch {
@@ -47,8 +48,10 @@ class PsalmListAdapter(
                         val favoritePsalmsList = user.getFavoritePsalmsList().toMutableList()
                         if (current.isFavorite)
                             favoritePsalmsList.add(current.psalm.id)
-                        else
+                        else{
                             favoritePsalmsList.remove(current.psalm.id)
+                        }
+
 
                         val updatedFavorites = user.setFavoritePsalmsList(favoritePsalmsList)
                         //modified list in room database
@@ -76,8 +79,21 @@ class PsalmListAdapter(
                     }
                 }
             }
-
+            if(!current.isFavorite && recyclerType == RecyclerType.FAVORITE){
+               remove(current)
+            }
         }
+    }
+    private fun remove(currentItem: PsalmItem) {
+        // Get the current list of items
+        val currentList = currentList.toMutableList()
+        val index = currentList.indexOf(currentItem)
+        // Remove the item at the given position
+        currentList.remove(currentItem)
+        // Submit the new list to the adapter
+        submitList(currentList)
+        // Notify the adapter of the item removal
+       // notifyItemRemoved(index)
     }
     class ItemViewHolder(view: View, private val listener: RecyclerViewEvent) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private val textViewPsalmNumber: TextView = view.findViewById(R.id.textViewPsalmNumber)

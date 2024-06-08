@@ -41,13 +41,6 @@ class Register : AppCompatActivity() {
 
         fAuth = FirebaseAuth.getInstance()
 
-
-
-        if (fAuth?.currentUser != null) {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
-            finish()
-        }
-
         mRegisterBtn?.setOnClickListener(View.OnClickListener {
             val email = mEmail?.text.toString().trim { it <= ' ' }
             val password = mPassword?.text.toString().trim { it <= ' ' }
