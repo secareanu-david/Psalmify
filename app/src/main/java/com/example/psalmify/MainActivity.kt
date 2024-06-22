@@ -1,9 +1,11 @@
 package com.example.psalmify
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -19,16 +21,14 @@ class MainActivity : AppCompatActivity() {
     private val applicationScope = CoroutineScope(SupervisorJob())
     val database by lazy { AppDatabase.getDatabase(this, applicationScope) }
 
+    companion object {
+        const val PREFS_NAME = "app_prefs"
+        const val THEME_KEY = "theme"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //navigation
-        //val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-        //val navController = navHostFragment.navController
-
-        //replaceFragment(Home())
-
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)

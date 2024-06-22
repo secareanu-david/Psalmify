@@ -6,4 +6,20 @@
     <color name="colorSelectedMenu">#03A9F4</color>
     <color name="colorUnselectedMenu">#8C8C8C</color>
     <color name="white">#FFFFFF</color>>
+
+
+        <!-- Light Theme Colors -->
+        <color name="primary_light">#FFFFFF</color> <!-- Example color, adjust as needed -->
+        <color name="primary_dark_light">#E0E0E0</color> <!-- Example color, adjust as needed -->
+        <color name="accent_light">#FF4081</color> <!-- Example color, adjust as needed -->
+
+        <!-- Dark Theme Colors -->
+        <color name="primary_dark">#000000</color> <!-- Example color, adjust as needed -->
+        <color name="primary_dark_dark">#303030</color> <!-- Example color, adjust as needed -->
+        <color name="accent_dark">#FF4081</color> <!-- Example color, adjust as needed -->
+
+        <!-- Backgrounds -->
+        <drawable name="background_light">@drawable/psalmify_logo</drawable>
+        <drawable name="background_dark">@drawable/login</drawable>
+
 </resources>

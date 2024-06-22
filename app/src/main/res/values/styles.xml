@@ -6,4 +6,23 @@
 
     </style>
 
+    <!-- Light theme -->
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_light</item>
+        <item name="colorPrimaryDark">@color/primary_dark_light</item>
+        <item name="colorAccent">@color/accent_light</item>
+        <item name="android:windowBackground">@drawable/background_light</item>
+        <item name="buttonBackgroundColor">@color/primary_light</item>
+        <!-- Add other light theme attributes here -->
+    </style>
+
+    <!-- Dark theme -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark_dark</item>
+        <item name="colorAccent">@color/accent_dark</item>
+        <item name="android:windowBackground">@drawable/background_dark</item>
+        <item name="buttonBackgroundColor">@color/primary_dark</item>
+        <!-- Add other dark theme attributes here -->
+    </style>
 </resources>
