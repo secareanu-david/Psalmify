@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="buttonBackgroundColor" format="color"/>
+    <attr name="textColor" format="color"/>
+    <attr name="bgDescription" format="string"/>
+    <attr name="bgLogo" format ="string"/>
+    <attr name="bgLogin" format ="string"/>
+    <attr name="cardGradient" format ="string"/>
 </resources>

@@ -25,10 +25,10 @@ class Register : AppCompatActivity() {
     var mLoginBtn: TextView? = null
     var mHomeBtn: TextView? = null
     var fAuth: FirebaseAuth? = null
-    var progressBar: ProgressBar? = null
 
     private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
+        SyncManager.loadTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
@@ -59,7 +59,6 @@ class Register : AppCompatActivity() {
                 mPassword?.error = "Password must be greater or equals to 6 characters."
             }
 
-            progressBar?.visibility = View.VISIBLE
 
             fAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -94,7 +93,6 @@ class Register : AppCompatActivity() {
                         "Error ! " + task.exception!!.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    progressBar?.visibility = View.GONE
                 }
             }
         })

@@ -3,6 +3,8 @@ package com.example.psalmify
 import android.app.Application
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.psalmify.UserDao
 import kotlinx.coroutines.CoroutineScope
@@ -10,7 +12,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SyncManager : Application() {
+    companion object {
+        fun loadTheme(activity: AppCompatActivity) {
 
+            val sharedPreferences = activity.getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE)
+            val isDarkMode = sharedPreferences.getBoolean(MainActivity.THEME_KEY, false)
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                activity.setTheme(R.style.AppTheme_Dark)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                activity.setTheme(R.style.AppTheme_Light)
+            }
+        }
+    }
     override fun onCreate() {
         super.onCreate()
 

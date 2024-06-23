@@ -30,6 +30,7 @@ class Home : Fragment(), PsalmListAdapter.RecyclerViewEvent {
     private lateinit var adapter: PsalmListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         CoroutineScope(Dispatchers.IO).launch {

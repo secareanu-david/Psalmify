@@ -8,21 +8,21 @@
 
     <!-- Light theme -->
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary_light</item>
-        <item name="colorPrimaryDark">@color/primary_dark_light</item>
-        <item name="colorAccent">@color/accent_light</item>
-        <item name="android:windowBackground">@drawable/background_light</item>
+        <item name="textColor">@color/light_text</item>
         <item name="buttonBackgroundColor">@color/primary_light</item>
-        <!-- Add other light theme attributes here -->
+        <item name="bgDescription">@drawable/heavens_gate</item>
+        <item name="bgLogo">@drawable/psalmify_logo</item>
+        <item name="cardGradient">@drawable/bg_gradient</item>
+        <item name ="bgLogin">@drawable/login</item>
     </style>
 
     <!-- Dark theme -->
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/primary_dark</item>
-        <item name="colorPrimaryDark">@color/primary_dark_dark</item>
-        <item name="colorAccent">@color/accent_dark</item>
-        <item name="android:windowBackground">@drawable/background_dark</item>
+        <item name="textColor">@color/dark_text</item>
         <item name="buttonBackgroundColor">@color/primary_dark</item>
-        <!-- Add other dark theme attributes here -->
+        <item name="bgDescription">@drawable/night_gates</item>
+        <item name="bgLogo">@drawable/dark_logo</item>
+        <item name="cardGradient">@drawable/gradient_night</item>
+        <item name ="bgLogin">@drawable/dark_login</item>
     </style>
 </resources>

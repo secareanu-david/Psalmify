@@ -46,6 +46,7 @@ class Settings : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val themeSwitch = view.findViewById<SwitchCompat>(R.id.theme_switch)
