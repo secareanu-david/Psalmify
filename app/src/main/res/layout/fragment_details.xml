@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgDescription"
+    android:background="@drawable/psalmify_logo"
     tools:context=".DetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
-        android:focusable="true"
-        >
+        android:focusable="true">
 
         <TextView
             android:id="@+id/textViewPsalm"
@@ -57,6 +56,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
                 android:background="@android:color/transparent">
+
+        <TextView
+            android:id="@+id/textViewPsalmContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="260dp"
+            android:background="@color/white"
+            android:text="ContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalm" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPlay"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="216dp"
+            android:src="@drawable/baseline_play_arrow_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalmContent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPause"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="215dp"
+            android:src="@drawable/baseline_pause_24"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPlay"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalmContent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonStop"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="212dp"
+            android:src="@drawable/baseline_stop_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPause"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalmContent" />
 
                 <TextView
                     android:id="@+id/textViewPsalmContent"
