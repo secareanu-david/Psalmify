@@ -21,7 +21,7 @@
             android:text="Psalmul: "
             app:layout_constraintBottom_toTopOf="@+id/textViewPsalmContent"
             app:layout_constraintEnd_toStartOf="@+id/textViewPsalmNumberDetails"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textViewPsalmNumberDetails"
@@ -45,6 +45,40 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPsalm" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPlay"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="216dp"
+            android:src="@drawable/baseline_play_arrow_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalmContent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPause"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="215dp"
+            android:src="@drawable/baseline_pause_24"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPlay"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalmContent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonStop"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="212dp"
+            android:src="@drawable/baseline_stop_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPause"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPsalmContent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
