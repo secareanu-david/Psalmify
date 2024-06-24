@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -62,6 +64,11 @@ class MainActivity : AppCompatActivity() {
 
 
                 R.id.favorites -> {
+                    if(SyncManager.isGuest){
+                        Toast.makeText(this, "Trebuie să fii logat pentru a vedea favoritele!!!", Toast.LENGTH_SHORT).show()
+                        return@setOnItemSelectedListener false
+                    }
+
                     if(navHostFragment.findNavController().currentDestination?.id == R.id.home2){
                         navHostFragment.findNavController().navigate(R.id.action_home2_to_favorite)
                     }
@@ -92,9 +99,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun logout(view: View?) {
-        FirebaseAuth.getInstance().signOut()
+        if(!SyncManager.isGuest)
+            FirebaseAuth.getInstance().signOut()
         startActivity(Intent(applicationContext, Login::class.java))
         finish()
+    }
+    override fun onDestroy(){
+        super.onDestroy()
+        SyncManager.isGuest = false
     }
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager

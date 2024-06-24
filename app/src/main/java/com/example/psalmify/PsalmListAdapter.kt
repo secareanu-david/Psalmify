@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -32,12 +33,13 @@ class PsalmListAdapter(
         val current = getItem(position)
         holder.bind(current.psalm.id, current.psalm.description, current.isFavorite)
 
-        //TODO Favorite/Unfavorite for backend
         holder.imageButtonFavorite.setOnClickListener {
+            if(SyncManager.isGuest){
+                Toast.makeText(context, "Trebuie să fii logat pentru a adăuga favorite!!!", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             current.isFavorite = !current.isFavorite
             holder.imageButtonFavorite.isSelected = current.isFavorite
-
-
 
             val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
             if (currentUserId != null) {

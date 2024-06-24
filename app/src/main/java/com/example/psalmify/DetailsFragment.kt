@@ -28,9 +28,9 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var buttonPause: ImageButton
     private lateinit var buttonStop: ImageButton
 
-    private var isPaused = false
+    private var isPaused = true
     private var spokenTextLength = 0
-
+    private var spokenTextLengthOffset = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,22 +67,27 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
                 speak(remainingText)
 
                 buttonPlay.isEnabled = false
+                buttonPause.isEnabled = true
             }
+
         }
 
         buttonPause.setOnClickListener {
             if (!isPaused) {
                 tts.stop()
+                spokenTextLengthOffset = spokenTextLength
                 isPaused = true
                 buttonPlay.isEnabled = true
+                buttonPause.isEnabled = false
             }
         }
 
         buttonStop.setOnClickListener {
             tts.stop()
-            isPaused = false
             spokenTextLength = 0
+            spokenTextLengthOffset = 0
             buttonPlay.isEnabled = true
+            buttonPause.isEnabled = true
         }
 
         return view
@@ -113,7 +118,7 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
                 override fun onDone(utteranceId: String?) {}
                 override fun onError(utteranceId: String?) {}
                 override fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) {
-                    spokenTextLength = start
+                    spokenTextLength = start + spokenTextLengthOffset
                 }
             })
         } else {
@@ -122,9 +127,22 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun speak(text: String) {
+        val maxLength = TextToSpeech.getMaxSpeechInputLength()  // Get the maximum length TTS can handle
         val params = Bundle()
         params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "utteranceId")
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "utteranceId")
+
+        if (text.length > maxLength) {
+            // Split the text into chunks
+            var startIndex = 0
+            while (startIndex < text.length) {
+                val endIndex = minOf(startIndex + maxLength, text.length)
+                val chunk = text.substring(startIndex, endIndex)
+                tts.speak(chunk, TextToSpeech.QUEUE_ADD, params, "utteranceId")
+                startIndex += maxLength
+            }
+        } else {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "utteranceId")
+        }
     }
 
     override fun onDestroy() {
@@ -134,6 +152,14 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
         }
         super.onDestroy()
     }
+    override fun onPause(){
+        if (::tts.isInitialized) {
+            tts.stop()
+            tts.shutdown()
+        }
+        super.onPause()
+    }
+
     private fun checkTTSData() {
         val checkIntent = Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA)
         try {

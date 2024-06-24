@@ -4,45 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgLogo"
+    android:background="?attr/bgLogin"
     tools:context=".HomeLogin">
+
 
     <Button
         android:id="@+id/btnHomeLogin"
-        android:layout_width="0dp"
+        android:layout_width="211dp"
         android:layout_height="64dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="20dp"
         android:background="?attr/buttonBackgroundColor"
+        android:fontFamily="@font/cabin_sketch"
         android:onClick="login"
         android:text="Logare"
-        android:fontFamily="@font/cabin_sketch"
         android:textColor="?attr/textColor"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnHomeRegister"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.938" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnHomeRegister"
-        android:layout_width="0dp"
+        android:layout_width="211dp"
         android:layout_height="66dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="52dp"
-        android:textColor="?attr/textColor"
+        android:layout_marginBottom="50dp"
         android:background="?attr/buttonBackgroundColor"
-        android:onClick="register"
         android:fontFamily="@font/cabin_sketch"
+        android:onClick="register"
         android:text="Înregistrare"
+        android:textColor="?attr/textColor"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuestLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnGuestLogin"
+        android:layout_width="211dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="30dp"
+        android:background="?attr/buttonBackgroundColor"
+        android:fontFamily="@font/cabin_sketch"
+        android:text="Logare ca Oaspete"
+        android:onClick="guestLogin"
+        android:textColor="?attr/textColor"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

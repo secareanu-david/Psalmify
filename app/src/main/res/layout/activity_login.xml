@@ -12,7 +12,6 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:text="Intră în cont"
         android:textColor="?attr/textColor"
         android:textSize="24sp"
@@ -75,16 +74,16 @@
         android:id="@+id/textRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="40dp"
         android:text="Nou pe aici? Click pentru a te înregistra"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="?attr/textColor"
         android:textSize="18sp"
         app:fontFamily="@font/cherry_cream_soda"
         app:layout_constraintBottom_toBottomOf="@+id/txtHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtHome"

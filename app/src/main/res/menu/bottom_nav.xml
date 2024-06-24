@@ -3,11 +3,14 @@
 
     <item android:title="Home"
           android:id="@+id/home"
+          android:checkable="false"
           android:icon="@drawable/baseline_home_24"/>
     <item android:title="Favorites"
           android:id="@+id/favorites"
+          android:checkable="false"
           android:icon="@drawable/baseline_favorite_24"/>
     <item android:title="Settings"
           android:id="@+id/settings"
+          android:checkable="false"
           android:icon="@drawable/baseline_settings_24"/>
 </menu>

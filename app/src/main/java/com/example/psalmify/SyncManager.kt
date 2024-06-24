@@ -25,6 +25,7 @@ class SyncManager : Application() {
                 activity.setTheme(R.style.AppTheme_Light)
             }
         }
+        var isGuest = false
     }
     override fun onCreate() {
         super.onCreate()

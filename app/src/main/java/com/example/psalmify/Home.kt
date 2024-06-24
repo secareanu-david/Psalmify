@@ -37,7 +37,7 @@ class Home : Fragment(), PsalmListAdapter.RecyclerViewEvent {
             val userDao =
                 AppDatabase.getDatabase(requireContext(), CoroutineScope(Dispatchers.IO)).userDao()
             val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
-            val psalmRepository = if (currentUserId != null) {
+            val psalmRepository = if (currentUserId != null && !SyncManager.isGuest) {
                 val user = userDao.getUser(currentUserId)
                 val favoriteList = user?.getFavoritePsalmsList() ?: emptyList()
                 PsalmRepository(

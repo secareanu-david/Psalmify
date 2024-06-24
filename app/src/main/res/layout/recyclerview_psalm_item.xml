@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/textViewPsalmDescription"
-            android:layout_width="311dp"
+            android:layout_width="260dp"
             android:layout_height="52dp"
             android:fontFamily="@font/aldrich"
             android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
@@ -39,7 +39,10 @@
             android:id="@+id/imageButtonFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
+            android:scaleX="1.75"
+            android:scaleY="1.75"
             android:src="@drawable/star_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
