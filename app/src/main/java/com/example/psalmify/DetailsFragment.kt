@@ -49,6 +49,7 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
 
         val textViewPsalmNumber = view.findViewById<TextView>(R.id.textViewPsalmNumberDetails)
+        val textViewPsalmNumber2 = view.findViewById<TextView>(R.id.textViewPsalmNumberDetails2)
         val textViewPsalmContent = view.findViewById<TextView>(R.id.textViewPsalmContent)
 
         buttonPlay = view.findViewById(R.id.imageButtonPlay)
@@ -56,6 +57,7 @@ class DetailsFragment : Fragment(), TextToSpeech.OnInitListener {
         buttonStop = view.findViewById(R.id.imageButtonStop)
 
         textViewPsalmNumber.text = psalm_number.toString()
+        textViewPsalmNumber2.text = psalm_number.toString()
         textViewPsalmContent.text = psalm_content
 
         buttonPlay.setOnClickListener {

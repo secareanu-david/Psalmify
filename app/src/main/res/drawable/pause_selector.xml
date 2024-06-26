@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/pressed_color" android:state_pressed="true" /> <!-- Red color when pressed -->
+    <item android:color="?attr/buttonBackgroundColor" android:state_pressed="true" /> <!-- Red color when pressed -->
     <item android:color="@color/colorSelectedMenu" android:state_enabled="false" android:state_pressed="false"/>
-    <item android:color="#000000" /> <!-- Default color (black) -->
+    <item android:color="?attr/textColor" /> <!-- Default color (black) -->
 </selector>
