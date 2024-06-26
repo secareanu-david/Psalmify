@@ -15,7 +15,21 @@
         android:textStyle="bold"
         android:paddingTop="10dp"
         android:paddingBottom="20dp"
-        android:textSize= "20sp"
+        android:textSize= "40sp"
+        android:textColor="#9C6621"
+        android:textAlignment="center"
+        android:fontFamily="@font/cinzel"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Favoritele tale"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:textSize= "39sp"
         android:textAlignment="center"
         android:fontFamily="@font/cinzel"
         />
@@ -24,7 +38,7 @@
         android:id="@+id/recyclerview_favorites"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:padding="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
