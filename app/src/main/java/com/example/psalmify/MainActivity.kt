@@ -2,6 +2,7 @@ package com.example.psalmify
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.example.psalmify.Settings.Companion
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,7 +23,9 @@ import kotlinx.coroutines.SupervisorJob
 class MainActivity : AppCompatActivity() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
+    private lateinit var sharedPreferences: SharedPreferences
     val database by lazy { AppDatabase.getDatabase(this, applicationScope) }
+
 
     companion object {
         const val PREFS_NAME = "app_prefs"
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         SyncManager.loadTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPreferences = this.getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -99,8 +104,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun logout(view: View?) {
-        if(!SyncManager.isGuest)
+        if(!SyncManager.isGuest) {
             FirebaseAuth.getInstance().signOut()
+            sharedPreferences.edit().putBoolean("rememberMe", false).apply()
+            sharedPreferences.edit().putString("email", "").apply()
+            sharedPreferences.edit().putString("password", "").apply()
+        }
         startActivity(Intent(applicationContext, Login::class.java))
         finish()
     }

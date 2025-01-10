@@ -85,7 +85,7 @@ class Register : AppCompatActivity() {
                             userDao.insert(user)
                         }
 
-                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        startActivity(Intent(applicationContext, Login::class.java))
                     }
                 } else {
                     Toast.makeText(

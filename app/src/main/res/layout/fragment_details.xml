@@ -1,151 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/bgLogo"
-    tools:context=".DetailsFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true">
-
-        <TextView
-            android:id="@+id/textViewPsalm2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/aguafina_script"
-            android:text="Psalmul: "
-            android:textColor="#9C6621"
-            android:textSize="58sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent"
-            app:layout_constraintRight_toLeftOf="@+id/textViewPsalmNumberDetails" />
-
-        <TextView
-            android:id="@+id/textViewPsalm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/aguafina_script"
-            android:text="Psalmul: "
-            android:textColor="#FFFFFF"
-            android:textSize="55sp"
-            app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent"
-            app:layout_constraintRight_toLeftOf="@+id/textViewPsalmNumberDetails" />
-
-        <TextView
-            android:id="@+id/textViewPsalmNumberDetails2"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/aguafina_script"
-            android:text="69"
-            android:textColor="#9C6621"
-            android:textSize="59sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewPsalmNumberDetails"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/aguafina_script"
-            android:text="69"
-            android:textColor="#FFFFFF"
-            android:textSize="55sp"
-            app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewPsalmContent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ScrollView
-                android:id="@+id/scrollViewPsalmContent"
-                android:layout_width="match_parent"
-                android:layout_height="480dp"
-                android:background="@android:color/transparent">
-
-
-                <TextView
-                    android:id="@+id/textViewPsalmContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/cardGradient"
-                    android:fontFamily="@font/cinzel"
-                    android:padding="16dp"
-                    android:text="ContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent"
-                    android:textColor="#FFFBFB"
-                    android:textSize="23sp" />
-
-
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="?attr/bgLogo" tools:context=".DetailsFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraint_layout" android:layout_width="match_parent" android:layout_height="match_parent" android:clickable="true" android:focusable="true">
+        <TextView android:id="@+id/textViewPsalm2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="@font/aguafina_script" android:text="Psalmul: " android:textColor="#9C6621" android:textSize="58sp" android:textStyle="bold" app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent" app:layout_constraintRight_toLeftOf="@+id/textViewPsalmNumberDetails"/>
+        <TextView android:id="@+id/textViewPsalm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="4dp" android:layout_marginBottom="4dp" android:fontFamily="@font/aguafina_script" android:text="Psalmul: " android:textColor="#FFFFFF" android:textSize="55sp" app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent" app:layout_constraintRight_toLeftOf="@+id/textViewPsalmNumberDetails"/>
+        <TextView android:id="@+id/textViewPsalmNumberDetails2" android:layout_width="75dp" android:layout_height="wrap_content" android:fontFamily="@font/aguafina_script" android:text="69" android:textColor="#9C6621" android:textSize="59sp" android:textStyle="bold" app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.488" app:layout_constraintStart_toStartOf="parent"/>
+        <TextView android:id="@+id/textViewPsalmNumberDetails" android:layout_width="75dp" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:fontFamily="@font/aguafina_script" android:text="69" android:textColor="#FFFFFF" android:textSize="55sp" app:layout_constraintBottom_toTopOf="@+id/cardViewPsalmContent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.488" app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.cardview.widget.CardView android:id="@+id/cardViewPsalmContent" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_margin="16dp" app:cardCornerRadius="8dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <ScrollView android:id="@+id/scrollViewPsalmContent" android:layout_width="match_parent" android:layout_height="480dp" android:background="@android:color/transparent">
+                <TextView android:id="@+id/textViewPsalmContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?attr/cardGradient" android:fontFamily="@font/cinzel" android:padding="16dp" android:text="ContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent" android:textColor="#FFFBFB" android:textSize="23sp"/>
             </ScrollView>
         </androidx.cardview.widget.CardView>
-
-        <ImageButton
-            android:id="@+id/imageButtonPlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="@android:color/transparent"
-            android:scaleX="3"
-            android:scaleY="3"
-            android:src="@drawable/baseline_play_arrow_24"
-            app:tint="@drawable/play_selector"
-            app:layout_constraintEnd_toStartOf="@+id/imageButtonPause"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewPsalmContent" />
-
-        <ImageButton
-            android:id="@+id/imageButtonPause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="70dp"
-            android:background="@android:color/transparent"
-            android:scaleX="3"
-            android:scaleY="3"
-            android:src="@drawable/baseline_pause_24"
-            app:tint="@drawable/pause_selector"
-            app:layout_constraintEnd_toStartOf="@+id/imageButtonStop"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButtonPlay"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewPsalmContent" />
-
-        <ImageButton
-            android:id="@+id/imageButtonStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="@android:color/transparent"
-            app:tint="@drawable/stop_selector"
-            android:scaleX="3"
-            android:scaleY="3"
-            android:src="@drawable/baseline_stop_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButtonPause"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewPsalmContent" />
+        <ImageButton android:id="@+id/imageButtonPlay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="50dp" android:background="@android:color/transparent" android:scaleX="3" android:scaleY="3" android:src="@drawable/baseline_play_arrow_24" app:tint="@drawable/play_selector" app:layout_constraintEnd_toStartOf="@+id/imageButtonPause" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/cardViewPsalmContent"/>
+        <ImageButton android:id="@+id/imageButtonPause" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="70dp" android:layout_marginTop="50dp" android:layout_marginEnd="70dp" android:background="@android:color/transparent" android:scaleX="3" android:scaleY="3" android:src="@drawable/baseline_pause_24" app:tint="@drawable/pause_selector" app:layout_constraintEnd_toStartOf="@+id/imageButtonStop" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toEndOf="@+id/imageButtonPlay" app:layout_constraintTop_toBottomOf="@+id/cardViewPsalmContent"/>
+        <ImageButton android:id="@+id/imageButtonStop" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="50dp" android:background="@android:color/transparent" app:tint="@drawable/stop_selector" android:scaleX="3" android:scaleY="3" android:src="@drawable/baseline_stop_24" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toEndOf="@+id/imageButtonPause" app:layout_constraintTop_toBottomOf="@+id/cardViewPsalmContent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

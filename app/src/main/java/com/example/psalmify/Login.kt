@@ -1,5 +1,6 @@
 package com.example.psalmify
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,9 +24,46 @@ class Login : AppCompatActivity() {
     private var mLoginBtn: Button? = null
     private var mCreateBtn: TextView? = null
     private var mHomeBtn: TextView? = null
-    private var fAuth: FirebaseAuth? = null
     private var mRememberMe: CheckBox? = null
     private lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+
+        var fAuth: FirebaseAuth? = FirebaseAuth.getInstance()
+
+        fun loginFunction(loginContext: AppCompatActivity, emailValue: String, passwordValue: String) {
+            val email = emailValue.trim { it <= ' ' }
+            val password = passwordValue.trim { it <= ' ' }
+
+            // authenticate the user
+            fAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+
+                    SyncManager.isGuest = false
+
+                    var alias : String? = null
+                    val db = FirebaseFirestore.getInstance()
+                    val userRef = db.collection("users").document(fAuth?.currentUser!!.uid)
+                    userRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null && document.exists()) {
+                                alias = document.getString("name")
+                                Toast.makeText(loginContext, "Dumnezeu sa te binecuvanteze, "+alias+"!", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    val intent = Intent(loginContext, MainActivity::class.java)
+                    loginContext.startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        loginContext,
+                        "Eroare!Nu exista acest utilizator ! " + task.exception!!.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         SyncManager.loadTheme(this)
         super.onCreate(savedInstanceState)
@@ -39,10 +78,9 @@ class Login : AppCompatActivity() {
         mRememberMe = findViewById(R.id.checkBox)
 
         sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE)
-        loadPreferences()
+
 
         mLoginBtn?.setOnClickListener(View.OnClickListener {
-
             val email = mEmail?.text.toString().trim { it <= ' ' }
             val password = mPassword?.text.toString().trim { it <= ' ' }
 
@@ -94,6 +132,7 @@ class Login : AppCompatActivity() {
                 }
             }
         })
+        loadPreferences()
 
         mCreateBtn?.setOnClickListener(View.OnClickListener {
             startActivity(
@@ -145,4 +184,6 @@ class Login : AppCompatActivity() {
         editor.clear()
         editor.apply()
     }
+
+
 }

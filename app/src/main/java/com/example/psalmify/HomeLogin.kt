@@ -2,6 +2,7 @@ package com.example.psalmify
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,17 +13,30 @@ import com.example.psalmify.MainActivity.Companion.THEME_KEY
 import com.example.psalmify.SyncManager.Companion.isGuest
 
 class HomeLogin : AppCompatActivity() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         SyncManager.loadTheme(this)
-
+        sharedPreferences = this.getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_login)
 
     }
 
     fun login(view: View?) {
-        startActivity(Intent(applicationContext, Login::class.java))
-        finish()
+        if(sharedPreferences.getBoolean("rememberMe",false)){
+            val email = sharedPreferences.getString("email","")
+            val password = sharedPreferences.getString("password","")
+            if (email != null && password != null) {
+                Login.loginFunction(this,email,password)
+            }
+        }
+        else {
+            startActivity(Intent(applicationContext, Login::class.java))
+            finish()
+        }
+
     }
     fun guestLogin(view: View?) {
         isGuest = true
