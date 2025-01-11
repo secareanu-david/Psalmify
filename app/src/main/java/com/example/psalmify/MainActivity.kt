@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.work.WorkManager
 import com.example.psalmify.Settings.Companion
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -109,6 +110,7 @@ class MainActivity : AppCompatActivity() {
             sharedPreferences.edit().putBoolean("rememberMe", false).apply()
             sharedPreferences.edit().putString("email", "").apply()
             sharedPreferences.edit().putString("password", "").apply()
+            WorkManager.getInstance().cancelUniqueWork("NotificationWork")
         }
         startActivity(Intent(applicationContext, Login::class.java))
         finish()

@@ -12,10 +12,13 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import java.security.AccessController.getContext
 
 
 class Login : AppCompatActivity() {
@@ -35,6 +38,8 @@ class Login : AppCompatActivity() {
             val email = emailValue.trim { it <= ' ' }
             val password = passwordValue.trim { it <= ' ' }
 
+            var sharedPreferences = loginContext.getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
+
             // authenticate the user
             fAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -48,6 +53,7 @@ class Login : AppCompatActivity() {
                         .addOnSuccessListener { document ->
                             if (document != null && document.exists()) {
                                 alias = document.getString("name")
+                                sharedPreferences.edit().putString("alias", alias).apply()
                                 Toast.makeText(loginContext, "Dumnezeu sa te binecuvanteze, "+alias+"!", Toast.LENGTH_LONG).show()
                             }
                         }
@@ -118,6 +124,7 @@ class Login : AppCompatActivity() {
                         .addOnSuccessListener { document ->
                             if (document != null && document.exists()) {
                                 alias = document.getString("name")
+                                sharedPreferences.edit().putString("alias", alias).apply()
                                 Toast.makeText(this@Login, "Dumnezeu sa te binecuvanteze, "+alias+"!", Toast.LENGTH_LONG).show()
                             }
                         }
@@ -164,6 +171,7 @@ class Login : AppCompatActivity() {
         editor.putBoolean("rememberMe", true)
         editor.putString("email", email)
         editor.putString("password", password)
+
         editor.apply()
     }
 
