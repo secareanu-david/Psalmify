@@ -32,7 +32,7 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) : Wor
         val intent = Intent(applicationContext, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-        val notificationText = "Binecuvantatule $alias, iti amintim cu multa smerenie ca trebuie sa-ti citesti pildele!"
+        val notificationText = "Binecuvantatule $alias, iti amintim cu multa smerenie ca trebuie sa-ti citesti psalmii!"
         val notification = NotificationCompat.Builder(applicationContext, "notification_channel")
             .setContentTitle("Psalmify")
             .setContentText(notificationText)
